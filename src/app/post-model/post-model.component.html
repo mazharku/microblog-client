@@ -1,0 +1,28 @@
+<div class="card" style="padding: 10px;">
+  <a class="text-uppercase font-weight-bold" style="color: darkgreen;">{{post.userName}}</a>
+    <div class="card-header">{{post.title}}</div>
+    <div class="card-body">
+      <p class="card-text">{{post.post}}</p>
+    </div>
+    <div>
+      <button (click)="updatelike()" type="button" class="btn" style="margin: 5px;" [ngClass]="likedByCurrentUser == true ? 'btn-danger': 'btn-primary'" > Like <span class="badge badge-light">{{numOfLike}}</span>
+      </button>
+        <button type="button" class="btn btn-primary" style="margin: 5px;" data-toggle="collapse" data-target="#postComment" aria-expanded="false" aria-controls="postComment">Comment</button>
+    </div>
+    <div class="col" style="margin: 10px;">
+      <div class="collapse multi-collapse" id="postComment">
+        <div class="card card-body">
+          <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <textarea  formControlName="comment" id="comment" rows="3" placeholder="comment...." class="form-control variable-textarea" style="width: 100%;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" style="float: right;">Post</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card" *ngFor = "let comment of comments" >
+        <p class="text-uppercase font-weight-bold" style="line-height: 25px; margin: 5px; color: darkgreen;">{{comment.commenterName}} <span class=" font-weight-bold" style="color: black;">::</span>
+        <span class="text-capitalize font-weight-normal" style="color: black; margin-left: 10px;">{{comment.comment}}</span></p>
+    </div>
+  </div>
