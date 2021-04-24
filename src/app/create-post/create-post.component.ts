@@ -11,6 +11,8 @@ import { BlogUser } from '../model/BlogUser';
 })
 export class CreatePostComponent  {
  
+  IdValue: string = localStorage.getItem("userId")  || '';
+  userId: string = this.IdValue.replace("\"",'').replace("\"", '')
   post: BlogPost= new BlogPost();
   user: BlogUser = new BlogUser();
   checkoutForm = this.formBuilder.group({
@@ -20,7 +22,7 @@ export class CreatePostComponent  {
   constructor(private route: ActivatedRoute, private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { }
 
   onSubmit() {
-    this.user.id = "a9cd9626-fe08-402b-adf0-d60bb7a8fb36"
+    this.user.id = this.userId
     console.log(this.user)
     this.post =  this.checkoutForm.value
     console.log(this.post)
