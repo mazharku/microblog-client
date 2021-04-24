@@ -14,7 +14,10 @@ import { PostModelComponent } from './post-model/post-model.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button'
 import {MatToolbarModule} from '@angular/material/toolbar'
-import {MatIconModule} from '@angular/material/icon'
+import {MatIconModule} from '@angular/material/icon';
+import {MatDialogModule} from '@angular/material/dialog'
+import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
+import { SingleUserPostsComponent } from './single-user-posts/single-user-posts.component'
 
 
 @NgModule({
@@ -24,14 +27,21 @@ import {MatIconModule} from '@angular/material/icon'
     HomeComponent,
     LoginComponent,
     RegistrationComponent,
-    PostModelComponent
+    PostModelComponent,
+    CustomDialogComponent,
+    SingleUserPostsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule, 
-    AppRoutingModule, BrowserAnimationsModule, MatButtonModule, MatToolbarModule,MatIconModule
+    AppRoutingModule,
+    BrowserAnimationsModule, 
+    MatButtonModule, 
+    MatToolbarModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [BlogServiceService],
   bootstrap: [AppComponent]

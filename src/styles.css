@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+::ng-deep .md-dialog-container {
+    opacity: .85; /* default value: .48 */
+    background-color: green; 
+    width: 500px;
+    height: 200px;
+    padding-bottom: 10px;
+    
+}
+.mat-dialog-container{
+    background:rgb(255, 255, 255);
+    color: black;
+}

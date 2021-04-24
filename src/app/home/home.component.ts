@@ -46,4 +46,5 @@ export class HomeComponent  implements OnInit {
   gotoList() {
     this.router.navigate(['']);
   }
+
 }

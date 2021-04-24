@@ -1,0 +1,7 @@
+<div class="container">
+    <a routerLink='/' class="btn" style="margin: 10px; background-color: black; color: white;">Back</a>
+  <div class="row" *ngFor = "let post of posts">
+      <div class="col"  style="margin: 5px;">
+       <app-post-model [post]="post" ></app-post-model>
+      </div>
+  </div>

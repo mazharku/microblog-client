@@ -1,5 +1,5 @@
 <div class="card" style="padding: 10px;">
-  <a class="text-uppercase font-weight-bold" style="color: darkgreen;">{{post.userName}}</a>
+  <a [routerLink]="['../posts', post.userId]" class="text-uppercase font-weight-bold" style="color: darkgreen;">{{post.userName}}</a>
     <div class="card-header">{{post.title}}</div>
     <div class="card-body">
       <p class="card-text">{{post.post}}</p>
@@ -7,10 +7,11 @@
     <div>
       <button mat-button (click)="updatelike()" type="button"  style="margin: 5px;"> <span class="material-icons" [ngClass]="likedByCurrentUser == true ? 'inactive': 'active'">thumb_up</span> <span class="badge badge-light">{{numOfLike}}</span>
       </button>
-        <button type="button" class="btn btn-primary" style="margin: 5px;" data-toggle="collapse" data-target="#postComment" aria-expanded="false" aria-controls="postComment">Comment</button>
+        <!-- <button type="button" class="btn btn-primary" style="margin: 5px;" data-toggle="collapse" data-target="#postComment" aria-expanded="false" aria-controls="postComment">Comment</button> -->
+        <button (click)="togglePostBar()" type="button" class="btn btn-primary" style="margin: 5px;">Comment</button>
     </div>
-    <div class="col" style="margin: 10px;">
-      <div class="collapse multi-collapse" id="postComment">
+    <div class="col" style="margin: 10px; ">
+      <div [ngClass]="isCollapsed == false ? 'hide': 'show'">
         <div class="card card-body">
           <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
             <div class="form-group">

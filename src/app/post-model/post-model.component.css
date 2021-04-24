@@ -4,3 +4,10 @@
 .inactive {
     color: blue;
 }
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

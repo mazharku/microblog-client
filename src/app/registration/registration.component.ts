@@ -3,6 +3,8 @@ import { BlogServiceService } from '../blog-service.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { BlogUser } from '../model/BlogUser';
+import { MatDialog } from '@angular/material/dialog'
+import {CustomDialog} from  '../custom-dialog/CustomDialog'
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +21,11 @@ export class RegistrationComponent  {
     gender: '',
     dob: Date
   });
-  constructor(private route: ActivatedRoute, private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { }
+  customDialog : CustomDialog
+  response : any
+  constructor(private dialog: MatDialog,private route: ActivatedRoute, private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { 
+    this.customDialog = new CustomDialog(dialog)
+  }
 
   onSubmit() {
    
@@ -29,10 +35,12 @@ export class RegistrationComponent  {
   public doCreateUser() {
     let resp= this.service.makeUser(this.user)
     resp.subscribe(data => {
-      console.log(data)
+
+      this.response = <Response>data;
+      this.customDialog.OpenDialogs(this.response.message)
       this.gotoList();
     }, 
-    error => console.log(error));
+    error => this.customDialog.OpenDialogs(error));
   }
   gotoList() {
     this.router.navigate(['']);

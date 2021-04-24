@@ -4,6 +4,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { BlogPost } from '../model/BlogPost';
 import { FormBuilder } from '@angular/forms';
 import { BlogUser } from '../model/BlogUser';
+import { MatDialog } from '@angular/material/dialog'
+import {CustomDialog} from  '../custom-dialog/CustomDialog'
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -19,7 +21,11 @@ export class CreatePostComponent  {
     title: '',
     post: ''
   });
-  constructor(private route: ActivatedRoute, private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { }
+  customDialog : CustomDialog
+  response : any
+  constructor(public dialog: MatDialog,private route: ActivatedRoute, private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { 
+    this.customDialog = new CustomDialog(dialog)
+  }
 
   onSubmit() {
     this.user.id = this.userId
@@ -33,10 +39,17 @@ export class CreatePostComponent  {
   public doCreatePost() {
     let resp= this.service.makePost(this.post);
     resp.subscribe(data => {
+      this.response = <Response>data;
       console.log(data)
-      this.gotoList();
+      if (this.response.status===false) {
+        this.customDialog.OpenDialogs(this.response.message)
+      }
+      else {
+        this.gotoList();
+      }
+     
     }, 
-    error => console.log(error));
+    error => this.customDialog.OpenDialogs(error));
   }
   gotoList() {
     this.router.navigate(['']);

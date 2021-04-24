@@ -6,7 +6,8 @@ import { BlogComment } from '../model/BlogComment';
 import { BlogPost } from '../model/BlogPost';
 import { BlogUser } from '../model/BlogUser';
 import { PostModel } from '../model/PostModel';
-
+import { MatDialog } from '@angular/material/dialog'
+import {CustomDialog} from  '../custom-dialog/CustomDialog'
 @Component({
   selector: 'app-post-model',
   templateUrl: './post-model.component.html',
@@ -26,7 +27,12 @@ export class PostModelComponent implements OnInit {
   commentForm = this.formBuilder.group({
     comment: '',
   });
-  constructor(private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { }
+  isCollapsed : boolean = false;
+  customDialog : CustomDialog
+  response : any
+  constructor( private dialog: MatDialog,private service: BlogServiceService,private formBuilder: FormBuilder,private router: Router) { 
+    this.customDialog = new CustomDialog(dialog)
+  }
 
   ngOnInit(): void {
     this.loadLikeCount()
@@ -64,30 +70,43 @@ export class PostModelComponent implements OnInit {
     console.log(this.post.id + "  h  "+this.userId)
     let resp= this.service.updateLike(this.post.id, this.userId)
     resp.subscribe(data => {
-     
-      if(data===true){
-        this.loadLikeCount()
+      this.response = <Response>data;
+
+      if( this.response.status===false){
+        this.customDialog.OpenDialogs(this.response.message)
       }
       else {
-        console.log("else block")
+        this.loadLikeCount()
       }
      
     }, 
-    error => console.log("error "+error));
+    error =>  this.customDialog.OpenDialogs(error));
   }
 
   onSubmit() {
     this.user.id = this.userId
     this.comment =  this.commentForm.value
     this.comment.commenterName = this.user
-    this.doCreateUser();   
+    this.doComment();   
   }
-  public doCreateUser() {
+  public doComment() {
     let resp= this.service.doCommentOfPost(this.post.id, this.comment )
     resp.subscribe(data => {
       console.log(data)
-      this.loadComments()
+      this.response = <Response>data;
+      if( this.response.status===false){
+        this.customDialog.OpenDialogs(this.response.message)
+      }
+      else {
+        this.commentForm.reset();
+        this.isCollapsed = false;
+        this.loadComments()
+      }
     }, 
-    error => console.log(error));
+    error => this.customDialog.OpenDialogs(error));
+  }
+
+  togglePostBar() {
+    this.isCollapsed = !this.isCollapsed;
   }
 }
