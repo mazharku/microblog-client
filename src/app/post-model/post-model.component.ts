@@ -41,13 +41,23 @@ export class PostModelComponent implements OnInit {
   }
 
   isLikedByCurrentUser(){
-    let resp= this.service.getNumberOfLikes(this.post.id)
-    resp.subscribe((res)=>this.likedByCurrentUser=res);
+    let resp= this.service.isLikeByCurrentUser(this.post.id, this.userId)
+    resp.subscribe(res=>{
+      console.log("data"+ JSON.stringify(res))
+      this.likedByCurrentUser=res
+      console.log("res"+ JSON.stringify( this.likedByCurrentUser))
+    },
+    error => console.log("error "+error));
   }
 
   loadComments() {
     let resp= this.service.getCommentsOfPost(this.post.id)
-    resp.subscribe((res)=>this.comments=res);
+    resp.subscribe(res=>{
+     // console.log("data"+ JSON.stringify(res))
+      this.comments=res
+     // console.log("res"+ JSON.stringify( this.comments))
+    },
+    error => console.log("error "+error));
   }
 
   updatelike() {
@@ -55,7 +65,6 @@ export class PostModelComponent implements OnInit {
     let resp= this.service.updateLike(this.post.id, this.userId)
     resp.subscribe(data => {
      
-     console.log(data)
       if(data===true){
         this.loadLikeCount()
       }
@@ -64,7 +73,7 @@ export class PostModelComponent implements OnInit {
       }
      
     }, 
-    error => console.log(error));
+    error => console.log("error "+error));
   }
 
   onSubmit() {
