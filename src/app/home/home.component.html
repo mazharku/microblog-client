@@ -1,19 +1,15 @@
-<nav class="navbar navbar-expand-lg" style="background-color: rgb(143, 135, 129);">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Navbar brand -->
-      <a class="navbar-brand" href="#">HOME</a>
-        <div style="float: right;">
-          <label>{{name}}</label>
-          <a *ngIf="name==''; else elseBlock" routerLink='/login' class="btn" style="background-color: darkorange; margin-left: 15px;" href="#">log in</a>
-          <ng-template #elseBlock><button (click)="doLogOut()" class="btn" style="background-color: rgb(214, 32, 8); margin-left: 15px;" href="#">log out</button></ng-template>
-        </div>
-    </div>
-  </nav>
-<div>
-    <a routerLink='/add' class="btn btn-primary" style="float: right; margin: 5px;">New Post</a>
-</div>
-<div class="container jumbotron">
+<mat-toolbar style="background-color: darkblue;">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>home</mat-icon>
+    </button>
+    <span>MicroBlog</span>
+    <span class="example-spacer"></span>
+      <h1>{{name}}</h1>
+      <a *ngIf="name==''; else elseBlock" routerLink='/login' class="btn" style="background-color: darkorange; margin-left: 15px;" href="#">log in</a>
+      <ng-template #elseBlock><button (click)="doLogOut()" class="btn" style="background-color: rgb(214, 32, 8); margin-left: 15px;" href="#">log out</button></ng-template>
+  </mat-toolbar>
+    <a routerLink='/add' class="btn btn-primary" style="float: right; margin: 5px;">New Post</a><br>
+<div class="container">
   <div class="row" *ngFor = "let post of posts">
       <div class="col"  style="margin: 5px;">
        <app-post-model [post]="post" ></app-post-model>
