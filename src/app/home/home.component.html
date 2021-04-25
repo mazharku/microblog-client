@@ -8,7 +8,12 @@
       <a *ngIf="name==''; else elseBlock" routerLink='/login' class="btn" style="background-color: darkorange; margin-left: 15px;" href="#">log in</a>
       <ng-template #elseBlock><button (click)="doLogOut()" class="btn" style="background-color: rgb(214, 32, 8); margin-left: 15px;" href="#">log out</button></ng-template>
   </mat-toolbar>
-    <a routerLink='/add' class="btn btn-primary" style="float: right; margin: 5px;">New Post</a><br>
+  <div class="container" >
+    <div class="row" style="margin: 3px; margin-top: 3px;">
+      <span class="example-spacer"></span>
+    <a (click) = "navigateToCreatePost()" class="btn btn-primary">New Post</a>
+  </div>
+  </div>
 <div class="container">
   <div class="row" *ngFor = "let post of posts">
       <div class="col"  style="margin: 5px;">

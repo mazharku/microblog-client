@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BlogServiceService } from '../blog-service.service';
 import { BlogUser } from '../model/BlogUser';
-
+import { MatDialog } from '@angular/material/dialog'
+import {CustomDialog} from  '../custom-dialog/CustomDialog'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,7 +16,10 @@ export class HomeComponent  implements OnInit {
   userId: string = this.IdValue.replace("\"",'').replace("\"", '')
   user: BlogUser = new BlogUser()
   posts: any;
-  constructor(private service: BlogServiceService, private router: Router) { }
+  customDialog : CustomDialog
+  constructor(private dialog: MatDialog,private service: BlogServiceService, private router: Router) { 
+    this.customDialog = new CustomDialog(dialog)
+  }
   ngOnInit(): void {
     this.getData();
   }
@@ -47,4 +51,11 @@ export class HomeComponent  implements OnInit {
     this.router.navigate(['']);
   }
 
+  navigateToCreatePost(){
+    if(this.userId=="" || this.userId===undefined){
+      this.customDialog.OpenDialogs("You are not logged in! please login to continue...");
+      return;
+    }
+    this.router.navigate(['/add']);
+  }
 }

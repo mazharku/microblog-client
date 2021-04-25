@@ -47,6 +47,9 @@ export class PostModelComponent implements OnInit {
   }
 
   isLikedByCurrentUser(){
+    if (this.userId == "" || this.userId ===undefined) {
+       return;
+    }
     let resp= this.service.isLikeByCurrentUser(this.post.id, this.userId)
     resp.subscribe(res=>{
       console.log("data"+ JSON.stringify(res))
@@ -67,6 +70,10 @@ export class PostModelComponent implements OnInit {
   }
 
   updatelike() {
+    if (this.userId == "" || this.userId ===undefined) {
+      this.customDialog.OpenDialogs("You are not logged In! please log in to continue")
+      return;
+   }
     console.log(this.post.id + "  h  "+this.userId)
     let resp= this.service.updateLike(this.post.id, this.userId)
     resp.subscribe(data => {
@@ -84,6 +91,14 @@ export class PostModelComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.userId == "" || this.userId ===undefined) {
+      this.customDialog.OpenDialogs("You are not logged In! please log in to continue")
+      return;
+   }
+   if (this.commentForm.value == "" || this.commentForm.value ===undefined) {
+    this.customDialog.OpenDialogs("Comment can not be empty!")
+    return;
+ }
     this.user.id = this.userId
     this.comment =  this.commentForm.value
     this.comment.commenterName = this.user
