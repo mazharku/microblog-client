@@ -1,7 +1,7 @@
 <div class="container jumbotron">
     <h1 class="text-uppercase font-weight-bold" style="text-align: center; margin-bottom: 10px;" >Register!</h1>
     <div class="row">
-        <div class="col-md-4" style="margin: auto;  width: 20%; line-height: 0px;">
+        <div class="col-md-4" style="margin: auto;  line-height: 0px;">
           <!-- for registration -->
           <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
@@ -24,7 +24,7 @@
                 <input type="date" formControlName="dob" id="dob"
                 class="form-control" maxlength="28" placeholder="dob" />
             </div>
-            <div style="margin: auto;  width: 60%; line-height: 0px;">
+            <div style="margin: auto;line-height: 0px;">
             <a routerLink='/' class="btn" style="background-color: black; color:white; margin: 5px;">Back</a>
             <button type="submit" class="btn btn-success">Registry</button>
             </div>
