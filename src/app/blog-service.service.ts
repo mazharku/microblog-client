@@ -5,7 +5,9 @@ import { HttpClient,HttpParams  } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BlogServiceService {
-baseURL: string = "https://microblog-ap.herokuapp.com"
+  
+  baseURL: string = "https://microblog-reactive.herokuapp.com"
+//baseURL: string = "https://microblog-ap.herokuapp.com"
 //baseURL: string = "http://localhost:8082"
 constructor(private http: HttpClient) { }
 public makePost(post: any) {
