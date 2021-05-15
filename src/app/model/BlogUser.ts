@@ -1,8 +1,8 @@
 export class BlogUser {
      
-    id: String | undefined ;
+    blogUserId: String | undefined ;
 	email: String | undefined;
-	userName: String | undefined;
+	blogUserName: String | undefined;
     password: String | undefined;
     gender: String| undefined;
     dob: Date | undefined;

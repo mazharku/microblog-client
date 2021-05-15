@@ -8,6 +8,7 @@ import { BlogUser } from '../model/BlogUser';
 import { PostModel } from '../model/PostModel';
 import { MatDialog } from '@angular/material/dialog'
 import {CustomDialog} from  '../custom-dialog/CustomDialog'
+import { RequestResponse } from '../model/RequestResponse';
 @Component({
   selector: 'app-post-model',
   templateUrl: './post-model.component.html',
@@ -37,11 +38,11 @@ export class PostModelComponent implements OnInit {
   ngOnInit(): void {
     this.loadLikeCount()
     this. loadComments()
-    console.log("id" + this.post.id)
+    console.log("id" + this.post.postId)
   }
 
   loadLikeCount() {
-    let resp= this.service.getNumberOfLikes(this.post.id)
+    let resp= this.service.getNumberOfLikes(this.post.postId)
     resp.subscribe((res)=>this.numOfLike=res);
     this.isLikedByCurrentUser();
   }
@@ -50,7 +51,7 @@ export class PostModelComponent implements OnInit {
     if (this.userId == "" || this.userId ===undefined) {
        return;
     }
-    let resp= this.service.isLikeByCurrentUser(this.post.id, this.userId)
+    let resp= this.service.isLikeByCurrentUser(this.post.postId, this.userId)
     resp.subscribe(res=>{
       console.log("data"+ JSON.stringify(res))
       this.likedByCurrentUser=res
@@ -60,7 +61,7 @@ export class PostModelComponent implements OnInit {
   }
 
   loadComments() {
-    let resp= this.service.getCommentsOfPost(this.post.id)
+    let resp= this.service.getCommentsOfPost(this.post.postId)
     resp.subscribe(res=>{
      // console.log("data"+ JSON.stringify(res))
       this.comments=res
@@ -74,11 +75,11 @@ export class PostModelComponent implements OnInit {
       this.customDialog.OpenDialogs("You are not logged In! please log in to continue")
       return;
    }
-    console.log(this.post.id + "  h  "+this.userId)
-    let resp= this.service.updateLike(this.post.id, this.userId)
+    console.log("from update "+this.post.postId + "  h  "+this.userId)
+    let resp= this.service.updateLike(this.post.postId, this.userId)
     resp.subscribe(data => {
-      this.response = <Response>data;
-
+      this.response = <RequestResponse>data;
+      console.log("from update data : "+this.response)
       if( this.response.status===false){
         this.customDialog.OpenDialogs(this.response.message)
       }
@@ -99,16 +100,16 @@ export class PostModelComponent implements OnInit {
     this.customDialog.OpenDialogs("Comment can not be empty!")
     return;
  }
-    this.user.id = this.userId
+    this.user.blogUserId = this.userId
     this.comment =  this.commentForm.value
     this.comment.commenterName = this.user
     this.doComment();   
   }
   public doComment() {
-    let resp= this.service.doCommentOfPost(this.post.id, this.comment )
+    let resp= this.service.doCommentOfPost(this.post.postId, this.comment )
     resp.subscribe(data => {
       console.log(data)
-      this.response = <Response>data;
+      this.response = <RequestResponse>data;
       if( this.response.status===false){
         this.customDialog.OpenDialogs(this.response.message)
       }

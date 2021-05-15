@@ -1,4 +1,4 @@
-export class Response {
+export class RequestResponse {
     status: boolean = false;
     message: string = ""; 
     

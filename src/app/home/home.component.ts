@@ -29,7 +29,7 @@ export class HomeComponent  implements OnInit {
     resp.subscribe((res)=>this.posts=res);
   }
   doLogOut(){
-    this.user.id= this.userId
+    this.user.blogUserId= this.userId
     let resp= this.service.doLogout(this.userId);
     resp.subscribe(data => {
      

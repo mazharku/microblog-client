@@ -21,7 +21,9 @@ public doLogin(user: any) {
  }
 public doLogout(user: any) {
   const params = new HttpParams()
+  .set('user', user)
   .set('user', user);
+  console.log("put hf : " + params)
   return this.http.post(this.baseURL+"/api/users/logout",params);
 }
 
@@ -35,6 +37,7 @@ public getNumberOfLikes(postid: any) {
 public isLikeByCurrentUser(postid: any, user: any) {
   const params = new HttpParams()
   .set('user', user);
+  console.log("put hf : " + params)
   return this.http.post(this.baseURL+"/api/votes/"+postid, params);
 }
 
@@ -49,7 +52,9 @@ public doCommentOfPost(postid: any, comment: any) {
 public updateLike(postid:any, user: any) {
   const params = new HttpParams()
   .set('user', user);
-  return this.http.put(this.baseURL+"/api/votes/" + postid, params );
+  var res = this.http.put(this.baseURL+"/api/votes/" + postid, "params");
+  console.log(res)
+  return res;
 }
 public getUserPosts(userId: any) {
   return this.http.get(this.baseURL+"/api/posts/user/"+userId );

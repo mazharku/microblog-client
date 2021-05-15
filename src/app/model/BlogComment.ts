@@ -4,7 +4,7 @@ import { BlogPost } from "./BlogPost";
 
 export class BlogComment {
      
-    id: String | undefined ;
+    commentId: String | undefined ;
     comment: String | undefined;
     commenterName: BlogUser = new BlogUser;
     post: BlogPost = new BlogPost;

@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { BlogUser } from '../model/BlogUser';
 import { MatDialog } from '@angular/material/dialog'
 import {CustomDialog} from  '../custom-dialog/CustomDialog'
+import { RequestResponse } from '../model/RequestResponse';
 
 @Component({
   selector: 'app-registration',
@@ -36,7 +37,7 @@ export class RegistrationComponent  {
     let resp= this.service.makeUser(this.user)
     resp.subscribe(data => {
 
-      this.response = <Response>data;
+      this.response = <RequestResponse>data;
       this.customDialog.OpenDialogs(this.response.message)
       this.gotoList();
     }, 

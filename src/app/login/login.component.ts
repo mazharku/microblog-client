@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { LoggedUser } from '../model/LoggedUser';
 import { MatDialog } from '@angular/material/dialog'
 import {CustomDialog} from  '../custom-dialog/CustomDialog'
+import { RequestResponse } from '../model/RequestResponse';
 
 @Component({ 
   selector: 'app-login',
@@ -34,18 +35,19 @@ export class LoginComponent  {
     let resp= this.service.doLogin(this.loginUser);
     resp.subscribe(data => {
     
-      this.response = <Response>data;
-
+      this.response = <RequestResponse>data;
+      console.log("response " + this.response)
       if(this.response.status===false){
-        this.response = <Response>data;
+        console.log("response inside false " + this.response)
+        this.response = <RequestResponse>data;
         localStorage.setItem("userName", "")
         localStorage.setItem("userId", "")
         this.customDialog.OpenDialogs(this.response.message)
       }
       else {
         this.user = <BlogUser> data
-        localStorage.setItem("userName", JSON.stringify(this.user.userName))
-        localStorage.setItem("userId", JSON.stringify(this.user.id))
+        localStorage.setItem("userName", JSON.stringify(this.user.blogUserName))
+        localStorage.setItem("userId", JSON.stringify(this.user.blogUserId))
         this.gotoList();
       }
      

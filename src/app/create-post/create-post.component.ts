@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { BlogUser } from '../model/BlogUser';
 import { MatDialog } from '@angular/material/dialog'
 import {CustomDialog} from  '../custom-dialog/CustomDialog'
+import { RequestResponse } from '../model/RequestResponse';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -28,7 +29,7 @@ export class CreatePostComponent  {
   }
 
   onSubmit() {
-    this.user.id = this.userId
+    this.user.blogUserId = this.userId
     console.log(this.user)
     this.post =  this.checkoutForm.value
     console.log(this.post)
@@ -39,7 +40,7 @@ export class CreatePostComponent  {
   public doCreatePost() {
     let resp= this.service.makePost(this.post);
     resp.subscribe(data => {
-      this.response = <Response>data;
+      this.response = <RequestResponse>data;
       console.log(data)
       if (this.response.status===false) {
         this.customDialog.OpenDialogs(this.response.message)
