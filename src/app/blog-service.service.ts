@@ -20,11 +20,9 @@ public doLogin(user: any) {
   return this.http.post(this.baseURL+"/api/users/login",user);
  }
 public doLogout(user: any) {
-  const params = new HttpParams()
-  .set('user', user)
+  const param = new HttpParams()
   .set('user', user);
-  console.log("put hf : " + params)
-  return this.http.post(this.baseURL+"/api/users/logout",params);
+  return this.http.post(this.baseURL+"/api/users/logout",null,{params:param});
 }
 
 public getAllPost() {
@@ -35,10 +33,9 @@ public getNumberOfLikes(postid: any) {
 }
 
 public isLikeByCurrentUser(postid: any, user: any) {
-  const params = new HttpParams()
+  const param = new HttpParams()
   .set('user', user);
-  console.log("put hf : " + params)
-  return this.http.post(this.baseURL+"/api/votes/"+postid, params);
+  return this.http.post(this.baseURL+"/api/votes/"+postid, null,{params:param});
 }
 
 public getCommentsOfPost(postid: any) {
@@ -50,11 +47,9 @@ public doCommentOfPost(postid: any, comment: any) {
 }
 
 public updateLike(postid:any, user: any) {
-  const params = new HttpParams()
+  const param = new HttpParams()
   .set('user', user);
-  var res = this.http.put(this.baseURL+"/api/votes/" + postid, "params");
-  console.log(res)
-  return res;
+  return this.http.put(this.baseURL+"/api/votes/" + postid, null,{params:param} );
 }
 public getUserPosts(userId: any) {
   return this.http.get(this.baseURL+"/api/posts/user/"+userId );

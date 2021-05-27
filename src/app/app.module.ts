@@ -41,7 +41,7 @@ import { SingleUserPostsComponent } from './single-user-posts/single-user-posts.
     MatButtonModule, 
     MatToolbarModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [BlogServiceService],
   bootstrap: [AppComponent]
